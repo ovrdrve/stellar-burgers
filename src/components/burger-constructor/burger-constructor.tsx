@@ -10,12 +10,14 @@ import {
   selectIsRequesting,
   selectNewOrderData
 } from '../../services/slices/orderSlice';
+import { selectUser } from '../../services/slices/userSlice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
   const constructorItems = useSelector(selectConstructorIngredients);
   const orderRequest = useSelector(selectIsRequesting);
   const orderModalData = useSelector(selectNewOrderData);
+  const user = useSelector(selectUser);
 
   const normilizeOrderData = (order: TConstructorIngredients): string[] => [
     order.bun!._id,
@@ -24,7 +26,7 @@ export const BurgerConstructor: FC = () => {
   ];
 
   const onOrderClick = () => {
-    if (!constructorItems.bun || orderRequest) return;
+    if (!constructorItems.bun || orderRequest || !user) return;
     dispatch(orderBurgerThunk(normilizeOrderData(constructorItems)));
   };
   const closeOrderModal = () => dispatch(resetOrder());
