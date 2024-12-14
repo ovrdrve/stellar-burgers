@@ -123,7 +123,7 @@ type TOrderResponse = TServerResponse<{
   orders: TOrder[];
 }>;
 
-export const getOrderByNumberApi = (number: number) =>
+export const getOrderByNumberApi = (number: string) =>
   fetch(`${URL}/orders/${number}`, {
     method: 'GET',
     headers: {
