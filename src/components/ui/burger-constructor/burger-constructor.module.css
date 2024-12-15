@@ -7,9 +7,8 @@
 }
 
 .elements {
-  min-height: 100px;
-
-  overflow-y: scroll;
+  min-height: 80px;
+  overflow-y: auto;
   list-style-type: none;
   margin: 0;
   padding: 0;
@@ -48,6 +47,7 @@
   line-height: 24px;
   color: #f2f2f3;
   margin-left: 44px;
+  max-width: 536px;
 }
 
 .noBunsTop {
