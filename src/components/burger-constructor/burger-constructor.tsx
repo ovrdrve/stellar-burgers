@@ -29,7 +29,10 @@ export const BurgerConstructor: FC = () => {
 
   const onOrderClick = () => {
     if (!constructorItems.bun || orderRequest) return;
-    if (!user) navigate('/login');
+    if (!user) {
+      navigate('/login');
+      return;
+    }
     dispatch(orderBurgerThunk(normilizeOrderData(constructorItems)));
   };
   const closeOrderModal = () => dispatch(resetOrder());
