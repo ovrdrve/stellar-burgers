@@ -5,11 +5,11 @@ import {
   SerializedError
 } from '@reduxjs/toolkit';
 import { TConstructorIngredients, TIngredient } from '@utils-types';
-import { RootState } from '../store';
-import { INGREDIENTS_SLICE_NAME } from '../slicesNames';
+import { RootState } from '../../store';
+import { INGREDIENTS_SLICE_NAME } from '../../slicesNames';
 import { nanoid } from 'nanoid';
 
-type TIngredientState = {
+export type TIngredientState = {
   isLoading: boolean;
   ingredients: TIngredient[];
   constructorIngredients: TConstructorIngredients;
@@ -34,7 +34,7 @@ const initialState: TIngredientState = {
   error: null
 };
 
-const ingredientsSlice = createSlice({
+export const ingredientsSlice = createSlice({
   name: INGREDIENTS_SLICE_NAME,
   initialState,
   reducers: {
@@ -95,4 +95,5 @@ export const {
   moveUpIngredient,
   moveDownIngredient
 } = ingredientsSlice.actions;
-export default ingredientsSlice.reducer;
+
+export const ingredientsReducer = ingredientsSlice.reducer;
