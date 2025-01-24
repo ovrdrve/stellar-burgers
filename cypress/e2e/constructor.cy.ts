@@ -89,5 +89,8 @@ describe('order made correctly', () => {
     cy.get('[data-cy=modal-close]').click();
 
     cy.get('#modals').contains('12345').should('not.exist');
+    cy.get('[data-cy=constructor]').contains('bun-1').should('not.exist');
+    cy.get('[data-cy=constructor]').contains('main-1').should('not.exist');
+    cy.get('[data-cy=constructor]').contains('sauce-1').should('not.exist');
   });
 });
