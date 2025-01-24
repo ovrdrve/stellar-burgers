@@ -57,6 +57,12 @@ export const ingredientsSlice = createSlice({
       const i = action.payload;
       const ingredients = state.constructorIngredients.ingredients;
       ingredients.splice(i, 2, ingredients[i + 1], ingredients[i]);
+    },
+    clearConstructor: (state) => {
+      state.constructorIngredients = {
+        bun: null,
+        ingredients: []
+      };
     }
   },
   extraReducers: (builder) => {
@@ -93,7 +99,8 @@ export const {
   addIngredient,
   deleteIngredient,
   moveUpIngredient,
-  moveDownIngredient
+  moveDownIngredient,
+  clearConstructor
 } = ingredientsSlice.actions;
 
 export const ingredientsReducer = ingredientsSlice.reducer;

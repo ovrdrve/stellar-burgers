@@ -9,6 +9,7 @@ describe('ingredients added to the constructor correctly', () => {
   });
 
   it('should add bun', () => {
+    cy.get('[data-cy=constructor]').contains('bun-1').should('not.exist');
     cy.get('[data-cy=category-buns]').contains('Добавить').click();
 
     cy.get('[data-cy=constructor-bun-top]').contains('bun-1').should('exist');
@@ -18,7 +19,9 @@ describe('ingredients added to the constructor correctly', () => {
   });
 
   it('should add ingredient', () => {
+    cy.get('[data-cy=constructor]').contains('main-1').should('not.exist');
     cy.get('[data-cy=category-mains]').contains('Добавить').click();
+    cy.get('[data-cy=constructor]').contains('sauce-1').should('not.exist');
     cy.get('[data-cy=category-sauces]').contains('Добавить').click();
 
     cy.get('[data-cy=constructor-ingredients]')

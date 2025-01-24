@@ -1,5 +1,6 @@
 import {
   addIngredient,
+  clearConstructor,
   deleteIngredient,
   getIngredientsThunk,
   ingredientsReducer,
@@ -18,35 +19,6 @@ describe('ingredientsSlice', () => {
     },
     error: null
   };
-
-  const testIngredientsData = [
-    {
-      _id: '123',
-      name: 'bun',
-      type: 'bun',
-      proteins: 11,
-      fat: 22,
-      carbohydrates: 33,
-      calories: 44,
-      price: 100,
-      image: 'image',
-      image_large: 'image_large',
-      image_mobile: 'image_mobile'
-    },
-    {
-      _id: '423',
-      name: 'main',
-      type: 'main',
-      proteins: 11,
-      fat: 22,
-      carbohydrates: 33,
-      calories: 44,
-      price: 100,
-      image: 'image',
-      image_large: 'image_large',
-      image_mobile: 'image_mobile'
-    }
-  ];
 
   const testMainIngredient = {
     id: '423',
@@ -126,7 +98,7 @@ describe('ingredientsSlice', () => {
     test('fulfilled should set ingredients and isLoading to false', () => {
       const expectedState = {
         isLoading: false,
-        ingredients: testIngredientsData,
+        ingredients: [testMainIngredient, testSauceIngredient],
         constructorIngredients: {
           bun: null,
           ingredients: []
@@ -136,7 +108,10 @@ describe('ingredientsSlice', () => {
 
       const actualState = ingredientsReducer(
         initialState,
-        getIngredientsThunk.fulfilled(testIngredientsData, '')
+        getIngredientsThunk.fulfilled(
+          [testMainIngredient, testSauceIngredient],
+          ''
+        )
       );
 
       expect(actualState).toEqual(expectedState);
@@ -255,7 +230,31 @@ describe('ingredientsSlice', () => {
         ingredients: [testMainIngredient, testSauceIngredient]
       };
 
-      const actualState = ingredientsReducer(initialState, moveDownIngredient(0));
+      const actualState = ingredientsReducer(
+        initialState,
+        moveDownIngredient(0)
+      );
+
+      expect(actualState.constructorIngredients).toEqual(expectedState);
+    });
+
+    test('clearConstructor', () => {
+      const initialState = {
+        isLoading: true,
+        ingredients: [],
+        constructorIngredients: {
+          bun: testBunIngredient,
+          ingredients: [testSauceIngredient, testMainIngredient]
+        },
+        error: null
+      };
+
+      const expectedState = {
+        bun: null,
+        ingredients: []
+      };
+
+      const actualState = ingredientsReducer(initialState, clearConstructor());
 
       expect(actualState.constructorIngredients).toEqual(expectedState);
     });

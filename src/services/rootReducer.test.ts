@@ -7,9 +7,29 @@ describe('rootReducer', () => {
   test('rootReducer should handle unknown action correctly', () => {
     const unknownTestAction = { type: 'UNKNOWN_ACTION' };
     const expectedState = {
-      ingredients: ingredientsReducer(undefined, unknownTestAction),
-      order: orderReducer(undefined, unknownTestAction),
-      user: userReducer(undefined, unknownTestAction)
+      ingredients: {
+        isLoading: true,
+        ingredients: [],
+        constructorIngredients: {
+          bun: null,
+          ingredients: []
+        },
+        error: null
+      },
+      order: {
+        isRequesting: false,
+        newOrderData: null,
+        previewOrder: null,
+        myOrders: [],
+        orders: [],
+        feed: {},
+        error: null
+      },
+      user: {
+        isAuthChecked: true,
+        user: null,
+        error: null
+      }
     };
 
     const actualState = rootReducer(undefined, unknownTestAction);
