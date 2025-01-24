@@ -2,12 +2,12 @@ import { getIngredientsApi } from '@api';
 import {
   createAsyncThunk,
   createSlice,
-  SerializedError
+  SerializedError,
+  nanoid
 } from '@reduxjs/toolkit';
 import { TConstructorIngredients, TIngredient } from '@utils-types';
 import { RootState } from '../../store';
 import { INGREDIENTS_SLICE_NAME } from '../../slicesNames';
-import { nanoid } from 'nanoid';
 
 export type TIngredientState = {
   isLoading: boolean;

@@ -3,6 +3,7 @@ import {
   deleteIngredient,
   getIngredientsThunk,
   ingredientsReducer,
+  moveDownIngredient,
   moveUpIngredient,
   TIngredientState
 } from './ingredientsSlice';
@@ -124,7 +125,7 @@ describe('ingredientsSlice', () => {
 
     test('fulfilled should set ingredients and isLoading to false', () => {
       const expectedState = {
-        isLoading: true,
+        isLoading: false,
         ingredients: testIngredientsData,
         constructorIngredients: {
           bun: null,
@@ -143,7 +144,7 @@ describe('ingredientsSlice', () => {
 
     test('rejected should set error and isLoading to false', () => {
       const expectedState = {
-        isLoading: true,
+        isLoading: false,
         ingredients: [],
         constructorIngredients: {
           bun: null,
@@ -254,7 +255,7 @@ describe('ingredientsSlice', () => {
         ingredients: [testMainIngredient, testSauceIngredient]
       };
 
-      const actualState = ingredientsReducer(initialState, moveUpIngredient(0));
+      const actualState = ingredientsReducer(initialState, moveDownIngredient(0));
 
       expect(actualState.constructorIngredients).toEqual(expectedState);
     });
