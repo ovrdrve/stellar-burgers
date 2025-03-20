@@ -13,12 +13,12 @@ import {
   TRegisterData,
   updateUserApi
 } from '@api';
-import { deleteCookie, setCookie } from '../../utils/cookie';
-import { USER_SLICE_NAME } from '../slicesNames';
-import { isActionPending, isActionRejected } from '../../utils/redux';
+import { deleteCookie, setCookie } from '../../../utils/cookie';
+import { USER_SLICE_NAME } from '../../slicesNames';
+import { isActionPending, isActionRejected } from '../../../utils/redux';
 import { UnknownAsyncThunkRejectedAction } from '@reduxjs/toolkit/dist/matchers';
 
-type TUserState = {
+export type TUserState = {
   isAuthChecked: boolean;
   user: TUser | null;
   error: SerializedError | null;
@@ -73,7 +73,7 @@ const initialState: TUserState = {
   error: null
 };
 
-const userSlice = createSlice({
+export const userSlice = createSlice({
   name: USER_SLICE_NAME,
   initialState,
   reducers: {},
@@ -86,8 +86,6 @@ const userSlice = createSlice({
       .addCase(logoutUserThunk.fulfilled, (state) => {
         state.isAuthChecked = true;
         state.user = null;
-        localStorage.removeItem('refreshToken');
-        deleteCookie('accessToken');
       })
       .addCase(registerUserThunk.fulfilled, (state, action) => {
         state.isAuthChecked = true;
@@ -122,4 +120,4 @@ const userSlice = createSlice({
 export const { selectIsAuthCheked, selectUser } = userSlice.selectors;
 
 export const {} = userSlice.actions;
-export default userSlice.reducer;
+export const userReducer = userSlice.reducer;

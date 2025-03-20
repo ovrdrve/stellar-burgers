@@ -12,6 +12,7 @@ import {
 } from '../../services/slices/orderSlice';
 import { selectUser } from '../../services/slices/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { clearConstructor } from '../../services/slices/ingredientsSlice/ingredientsSlice';
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
@@ -35,7 +36,10 @@ export const BurgerConstructor: FC = () => {
     }
     dispatch(orderBurgerThunk(normilizeOrderData(constructorItems)));
   };
-  const closeOrderModal = () => dispatch(resetOrder());
+  const closeOrderModal = () => {
+    dispatch(resetOrder());
+    dispatch(clearConstructor());
+  };
 
   const price = useMemo(
     () =>

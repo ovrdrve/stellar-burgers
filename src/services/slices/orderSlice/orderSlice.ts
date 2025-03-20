@@ -4,16 +4,15 @@ import {
   SerializedError
 } from '@reduxjs/toolkit';
 import { TOrder } from '@utils-types';
-import { ORDER_SLICE_NAME } from '../slicesNames';
+import { ORDER_SLICE_NAME } from '../../slicesNames';
 import {
   getFeedsApi,
   getOrderByNumberApi,
   getOrdersApi,
   orderBurgerApi
 } from '@api';
-import { RootState } from '../store';
 
-type TOrderState = {
+export type TOrderState = {
   isRequesting: boolean;
   newOrderData: TOrder | null;
   previewOrder: TOrder | null;
@@ -65,7 +64,7 @@ const initialState: TOrderState = {
   error: null
 };
 
-const orderSlice = createSlice({
+export const orderSlice = createSlice({
   name: ORDER_SLICE_NAME,
   initialState,
   reducers: {
@@ -141,4 +140,4 @@ export const {
 } = orderSlice.selectors;
 
 export const { resetOrder } = orderSlice.actions;
-export default orderSlice.reducer;
+export const orderReducer = orderSlice.reducer;

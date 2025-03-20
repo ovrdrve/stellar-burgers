@@ -2,14 +2,14 @@ import { getIngredientsApi } from '@api';
 import {
   createAsyncThunk,
   createSlice,
-  SerializedError
+  SerializedError,
+  nanoid
 } from '@reduxjs/toolkit';
 import { TConstructorIngredients, TIngredient } from '@utils-types';
-import { RootState } from '../store';
-import { INGREDIENTS_SLICE_NAME } from '../slicesNames';
-import { nanoid } from 'nanoid';
+import { RootState } from '../../store';
+import { INGREDIENTS_SLICE_NAME } from '../../slicesNames';
 
-type TIngredientState = {
+export type TIngredientState = {
   isLoading: boolean;
   ingredients: TIngredient[];
   constructorIngredients: TConstructorIngredients;
@@ -34,7 +34,7 @@ const initialState: TIngredientState = {
   error: null
 };
 
-const ingredientsSlice = createSlice({
+export const ingredientsSlice = createSlice({
   name: INGREDIENTS_SLICE_NAME,
   initialState,
   reducers: {
@@ -57,6 +57,12 @@ const ingredientsSlice = createSlice({
       const i = action.payload;
       const ingredients = state.constructorIngredients.ingredients;
       ingredients.splice(i, 2, ingredients[i + 1], ingredients[i]);
+    },
+    clearConstructor: (state) => {
+      state.constructorIngredients = {
+        bun: null,
+        ingredients: []
+      };
     }
   },
   extraReducers: (builder) => {
@@ -93,6 +99,8 @@ export const {
   addIngredient,
   deleteIngredient,
   moveUpIngredient,
-  moveDownIngredient
+  moveDownIngredient,
+  clearConstructor
 } = ingredientsSlice.actions;
-export default ingredientsSlice.reducer;
+
+export const ingredientsReducer = ingredientsSlice.reducer;
